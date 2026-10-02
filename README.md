@@ -26,14 +26,14 @@ proxying to the local S3-compatible store.
 `docker-compose.yml` runs a local stack mirroring how the site will be served
 in production (static assets + images via S3 behind CloudFront):
 
-- **web** — Nginx, serves the static site and reverse-proxies `/media/*` to
-  the S3-compatible store, so the site references the same `/media/...`
-  paths in dev and production.
-- **seaweedfs** — [SeaweedFS](https://github.com/seaweedfs/seaweedfs) running
-  as an all-in-one server with its S3 API gateway enabled, standing in for S3
-  in dev. No auth is configured, so it accepts requests anonymously (fine for
+- **webserver** — Nginx, serves the static site and reverse-proxies
+  `/media/*` to the S3-compatible store, so the site references the same
+  `/media/...` paths in dev and production.
+- **s3** — [SeaweedFS](https://github.com/seaweedfs/seaweedfs) running as an
+  all-in-one server with its S3 API gateway enabled, standing in for S3 in
+  dev. No auth is configured, so it accepts requests anonymously (fine for
   local dev; production uses real S3 + CloudFront, see `PLAN.md`).
-- **seaweed-init** — a one-shot container that creates the `folio` bucket and
+- **s3-init** — a one-shot container that creates the `folio` bucket and
   uploads a sample image via plain S3 REST calls, then exits.
 
 ```sh
