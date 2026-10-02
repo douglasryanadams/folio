@@ -18,22 +18,12 @@ services:
       - s3-data:/data
 
   s3-init:
-    image: curlimages/curl:latest
+    build:
+      context: ./s3-init
     depends_on:
       - s3
     volumes:
       - ./seed:/seed:ro
-    entrypoint:
-      - /bin/sh
-      - -c
-      - |
-        until curl -s -o /dev/null "http://s3:8333/"; do
-          sleep 1
-        done
-        curl -s -X PUT "http://s3:8333/folio"
-        curl -s -X PUT --data-binary @/seed/sample.svg \
-          -H "Content-Type: image/svg+xml" \
-          "http://s3:8333/folio/sample.svg"
 
 volumes:
   s3-data:
