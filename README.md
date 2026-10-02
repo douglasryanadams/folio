@@ -64,11 +64,11 @@ Linters and tests run inside Docker containers — no local Node/Bun install req
 
 ```sh
 # build the images
-docker compose -f docker-compose.lint.yml build
+docker compose -f docker-compose.build.yml build
 
 # run an individual linter, or the test suite
-docker compose -f docker-compose.lint.yml run --rm lint-js
-docker compose -f docker-compose.lint.yml run --rm lint-css
-docker compose -f docker-compose.lint.yml run --rm lint-html
-docker compose -f docker-compose.lint.yml run --rm test
+docker compose -f docker-compose.build.yml run --rm lint-js
+docker compose -f docker-compose.build.yml run --rm lint-css
+docker compose -f docker-compose.build.yml run --rm lint-html
+docker compose -f docker-compose.build.yml run --rm test
 ```
