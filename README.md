@@ -17,7 +17,35 @@ See [PLAN.md](./PLAN.md) for deferred/future work.
 
 ## Getting started
 
-Open `index.html` directly in a browser to view the current page skeleton.
+Open `index.html` directly in a browser to view the current page skeleton, or
+run the dev environment (see below) to view it served over HTTP with image
+proxying to the local S3-compatible store.
+
+## Development environment
+
+`docker-compose.yml` runs a local stack mirroring how the site will be served
+in production (static assets + images via S3 behind CloudFront):
+
+- **web** — Nginx, serves the static site and reverse-proxies `/media/*` to
+  the S3-compatible store, so the site references the same `/media/...`
+  paths in dev and production.
+- **seaweedfs** — [SeaweedFS](https://github.com/seaweedfs/seaweedfs) running
+  as an all-in-one server with its S3 API gateway enabled, standing in for S3
+  in dev. No auth is configured, so it accepts requests anonymously (fine for
+  local dev; production uses real S3 + CloudFront, see `PLAN.md`).
+- **seaweed-init** — a one-shot container that creates the `folio` bucket and
+  uploads a sample image via plain S3 REST calls, then exits.
+
+```sh
+docker compose up
+```
+
+- Site: http://localhost:8080
+- Sample image via the proxy: http://localhost:8080/media/sample.svg
+- SeaweedFS S3 API directly (for debugging): http://localhost:8333
+
+Stop the stack with `docker compose down` (add `-v` to also clear the stored
+objects).
 
 ## Linting
 
