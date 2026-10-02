@@ -1,0 +1,27 @@
+services:
+  lint-js:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run lint:js
+
+  lint-css:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run lint:css
+
+  lint-html:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run lint:html

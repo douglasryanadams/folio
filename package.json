@@ -1,0 +1,18 @@
+{
+  "name": "folio",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint:html": "htmlhint \"**/*.html\"",
+    "lint": "bun run lint:js && bun run lint:css && bun run lint:html"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "htmlhint": "^1.1.4",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}

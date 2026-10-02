@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #1a1a1a;
+  background-color: #fff;
+}
+
+header {
+  padding: 1rem;
+}
+
+nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+}
