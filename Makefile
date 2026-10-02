@@ -1,10 +1,14 @@
-.PHONY: start stop format lint test check
+.PHONY: start stop dev format lint test check
 
 start:
 	docker compose up -d
 
 stop:
 	docker compose down
+
+dev:
+	docker compose up -d s3 s3-init
+	bun run dev
 
 format:
 	docker compose -f docker-compose.build.yml run --rm lint-js bun run format:js

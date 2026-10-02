@@ -13,13 +13,12 @@ Built iteratively, one narrow step at a time.
 5. Prefer CSS over JavaScript for visual formatting and adjustment.
 6. Use modern HTML layout features (Flex, Grid) appropriately.
 
-See [PLAN.md](./PLAN.md) for deferred/future work.
-
 ## Common commands
 
 ```sh
 make start   # start the dev environment (webserver + S3-compatible store)
 make stop    # stop it
+make dev     # start the S3 store + Bun hot-reload dev server
 make format  # auto-fix JS/CSS style issues
 make lint    # format, then run all linters (JS, CSS, HTML) in Docker
 make test    # run the test suite with Bun, in Docker
@@ -57,6 +56,28 @@ docker compose up
 
 Stop the stack with `docker compose down` (add `-v` to also clear the stored
 objects).
+
+## Hot-reload development
+
+For fast UI iteration, `dev-server.js` uses Bun's built-in dev server to
+serve `index.html` with hot reload: CSS and JS changes apply instantly in
+the browser, no manual refresh needed. It also proxies `/media/*` to the
+local S3 store, same as nginx does in `docker-compose.yml`, so images work
+too.
+
+Requires Bun installed locally (this is the one workflow that isn't fully
+dockerized, since hot reload needs to watch the filesystem directly).
+
+```sh
+make dev
+# or: docker compose up -d s3 s3-init && bun run dev
+```
+
+- Site with hot reload: http://localhost:3000
+
+This is separate from `make start`, which runs the full nginx + S3 stack
+mirroring production and is better for testing the production-like setup
+rather than for active UI editing.
 
 ## Linting and tests
 

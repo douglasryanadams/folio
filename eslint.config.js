@@ -9,6 +9,9 @@ export default [
         document: "readonly",
         console: "readonly",
         fetch: "readonly",
+        Bun: "readonly",
+        URL: "readonly",
+        Response: "readonly",
       },
     },
     rules: {
