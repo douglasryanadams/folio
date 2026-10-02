@@ -15,6 +15,17 @@ Built iteratively, one narrow step at a time.
 
 See [PLAN.md](./PLAN.md) for deferred/future work.
 
+## Common commands
+
+```sh
+make start   # start the dev environment (webserver + S3-compatible store)
+make stop    # stop it
+make format  # auto-fix JS/CSS style issues
+make lint    # format, then run all linters (JS, CSS, HTML) in Docker
+make test    # run the test suite with Bun
+make check   # lint + test
+```
+
 ## Getting started
 
 Open `index.html` directly in a browser to view the current page skeleton, or
