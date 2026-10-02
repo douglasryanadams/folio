@@ -7,6 +7,7 @@
 // Then run: bun run dev
 
 import index from "./index.html";
+import photography from "./photography.html";
 
 const S3_ORIGIN = "http://localhost:8333/folio";
 
@@ -15,6 +16,7 @@ Bun.serve({
   development: true,
   routes: {
     "/": index,
+    "/photography.html": photography,
   },
   async fetch(req) {
     const url = new URL(req.url);

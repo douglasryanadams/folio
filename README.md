@@ -43,8 +43,9 @@ in production (static assets + images via S3 behind CloudFront):
   all-in-one server with its S3 API gateway enabled, standing in for S3 in
   dev. No auth is configured, so it accepts requests anonymously (fine for
   local dev; production uses real S3 + CloudFront, see `PLAN.md`).
-- **s3-init** — a one-shot container that creates the `folio` bucket and
-  uploads a sample image via plain S3 REST calls, then exits.
+- **s3-init** — a one-shot container that creates the `folio` bucket,
+  uploads the sample image, and uploads everything in `media-local/` (see
+  below), via plain S3 REST calls, then exits.
 
 ```sh
 docker compose up
@@ -56,6 +57,14 @@ docker compose up
 
 Stop the stack with `docker compose down` (add `-v` to also clear the stored
 objects).
+
+### Adding real images without committing them
+
+Drop image files into `media-local/` (gitignored, created on first use).
+Every file in it gets uploaded to the S3 store's bucket root on
+`docker compose up`, and becomes reachable at `/media/<filename>`, same as
+`seed/sample.svg`. Re-run `docker compose up s3-init` after adding more
+files to pick them up without restarting the whole stack.
 
 ## Hot-reload development
 

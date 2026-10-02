@@ -24,6 +24,7 @@ services:
       - s3
     volumes:
       - ./seed:/seed:ro
+      - ./media-local:/media-local:ro
 
 volumes:
   s3-data:
