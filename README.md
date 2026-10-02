@@ -22,7 +22,7 @@ make start   # start the dev environment (webserver + S3-compatible store)
 make stop    # stop it
 make format  # auto-fix JS/CSS style issues
 make lint    # format, then run all linters (JS, CSS, HTML) in Docker
-make test    # run the test suite with Bun
+make test    # run the test suite with Bun, in Docker
 make check   # lint + test
 ```
 
@@ -58,16 +58,17 @@ docker compose up
 Stop the stack with `docker compose down` (add `-v` to also clear the stored
 objects).
 
-## Linting
+## Linting and tests
 
-Linters run inside Docker containers — no local Node/Bun install required to lint.
+Linters and tests run inside Docker containers — no local Node/Bun install required.
 
 ```sh
-# build the lint image
+# build the images
 docker compose -f docker-compose.lint.yml build
 
-# run an individual linter
+# run an individual linter, or the test suite
 docker compose -f docker-compose.lint.yml run --rm lint-js
 docker compose -f docker-compose.lint.yml run --rm lint-css
 docker compose -f docker-compose.lint.yml run --rm lint-html
+docker compose -f docker-compose.lint.yml run --rm test
 ```

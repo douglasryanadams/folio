@@ -16,6 +16,6 @@ lint: format
 	docker compose -f docker-compose.lint.yml run --rm lint-html
 
 test:
-	bun test
+	docker compose -f docker-compose.lint.yml run --rm test
 
 check: lint test
