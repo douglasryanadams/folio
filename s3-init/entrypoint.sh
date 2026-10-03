@@ -9,9 +9,6 @@ until curl -s -o /dev/null "$S3_URL/"; do
 done
 
 curl -s -X PUT "$S3_URL/$BUCKET"
-curl -s -X PUT --data-binary @/seed/sample.svg \
-  -H "Content-Type: image/svg+xml" \
-  "$S3_URL/$BUCKET/sample.svg"
 
 content_type_for() {
   case "$1" in
@@ -25,11 +22,13 @@ content_type_for() {
 }
 
 if [ -d /media-local ]; then
-  for file in /media-local/*; do
-    [ -f "$file" ] || continue
-    name=$(basename "$file")
-    curl -s -X PUT --data-binary @"$file" \
-      -H "Content-Type: $(content_type_for "$name")" \
-      "$S3_URL/$BUCKET/$name"
+  # Subdirectories become key prefixes (S3 has no real folders).
+  echo "Uploading files from /media-local"
+  find /media-local -type f -not -name ".*" | while IFS= read -r file; do
+    key="${file#/media-local/}"
+    echo "Uploading $key to $S3_URL/$BUCKET/$key as $(content_type_for "$key")"
+    curl -s -f -X PUT --data-binary @"$file" \
+      -H "Content-Type: $(content_type_for "$key")" \
+      "$S3_URL/$BUCKET/$key"
   done
 fi

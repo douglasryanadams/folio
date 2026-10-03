@@ -23,7 +23,6 @@ services:
     depends_on:
       - s3
     volumes:
-      - ./seed:/seed:ro
       - ./media-local:/media-local:ro
 
 volumes:

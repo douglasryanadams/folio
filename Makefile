@@ -1,13 +1,13 @@
 .PHONY: start stop dev format lint test check
 
 start:
-	docker compose up -d
+	docker compose up -d --build
 
 stop:
-	docker compose down
+	docker compose down --volumes
 
 dev:
-	docker compose up -d s3 s3-init
+	docker compose up -d --build s3 s3-init
 	bun run dev
 
 format:

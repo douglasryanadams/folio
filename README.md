@@ -4,6 +4,23 @@ A portfolio site for digital illustrations and photography.
 
 Built iteratively, one narrow step at a time.
 
+## AI Disclaimer
+
+I'm a software engineer, a digital artist, and a photographer. This puts me at the intersection of the AI debate that I'm still forming my own thoughts around. Here's where I'm at right now: AI is a tool that amplifies my creativity by limiting the energy I spend on the tedium that often accompanies software engineering.
+
+Is the work creative? Should the work be creative? Am I using the work to represent something about my view of the world or message I want to communicate? If so, I'm not using AI for that work. This (obviously) includes all of my creative work as a digital artist and photographer. This also includes the majority of the software in this repository and the layout of this website.
+
+So what do I use AI for?
+
+1. I used it to set this project up. At the beginning of a software project there is a lot of "boilerplate" that I've already done, by hand, dozens if not hundreds of times myself over the last 15 years. Claude Code can do it for me, exactly the way I want it done in about 1/20th of the time it would take me. I get no joy from setting projects up, it's not creative, it's reading manuals to remember details I forgot and spending hours hunting for syntax errors. Claude Code liberates me from this.
+2. I use it occasionally to help me troubleshoot issues or learn about technologies. In this sense, it's a more effective search engine, finding me contextually relevant information that I can use to improve my own skills and knowledge. This helps me save my energy to focus on more creative aspects of building this website and avoid digging through StackOverflow and poorly written documentation for hours.
+3. In my photography, I sometimes use the AI Denoise feature of Lightroom to bring back details of high noise images that could not be captured with less noise.
+4. In the future, if I choose to share event or portrait photography, I may use AI powered image manipulation features such as heal or generative fill delete tools to work around circumstances outside my control when capturing the image.
+
+I am sure this is troubling for some readers, as a visual artist there are a lot of real threats to the industry from AI tools. There are also real ethical concerns with the provenance and maintenance of these tools in addition to the considerable environmental concerns. Those are also part of my personal considerations when using these tools.
+
+Unfortunately, the reality for nearly anyone hosting a website in 2026 (and likely the future) is that any popular tool (Wix, SquareSpace, WordPress, etc.) is certainly using more agentic tools than I am in this project.
+
 ## Ground rules
 
 1. Vanilla JavaScript, vanilla CSS, vanilla HTML for everything possible — no frameworks.
@@ -61,9 +78,11 @@ objects).
 ### Adding real images without committing them
 
 Drop image files into `media-local/` (gitignored, created on first use).
-Every file in it gets uploaded to the S3 store's bucket root on
-`docker compose up`, and becomes reachable at `/media/<filename>`, same as
-`seed/sample.svg`. Re-run `docker compose up s3-init` after adding more
+Every file in it gets uploaded to the S3 store on `docker compose up`, and
+becomes reachable at `/media/<path>`, same as `seed/sample.svg`. Subfolders
+are supported: `media-local/photos/2024/a.jpg` is served at
+`/media/photos/2024/a.jpg` (S3 has no real folders; the subpath is just part
+of the object key, and SeaweedFS maps it to directories). Re-run `docker compose up s3-init` after adding more
 files to pick them up without restarting the whole stack.
 
 ## Hot-reload development
