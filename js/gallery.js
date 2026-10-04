@@ -1,24 +1,25 @@
-const IMAGE_EXTENSIONS = /\.(jpe?g|png|gif|webp|svg)$/i;
+import { getPhotoKeys } from "./s3-client.js";
+import { ERROR_CODE } from "./error.js";
+
+function itemWithText(text) {
+  const item = document.createElement("li");
+  item.textContent = text;
+  return item;
+}
 
 async function loadGallery() {
   const gallery = document.getElementById("gallery");
 
-  let xml;
+  let keys;
   try {
-    const response = await fetch("/media/");
-    xml = await response.text();
-  } catch {
-    gallery.replaceChildren(itemWithText("Could not load photos."));
+    keys = await getPhotoKeys();
+  } catch (error) {
+    gallery.replaceChildren(itemWithText(error.message));
     return;
   }
 
-  const keys = [...xml.matchAll(/<Key>([^<]+)<\/Key>/g)]
-    .map((match) => match[1])
-    .filter((key) => IMAGE_EXTENSIONS.test(key))
-    .sort();
-
   if (keys.length === 0) {
-    gallery.replaceChildren(itemWithText("No photos yet."));
+    gallery.replaceChildren(itemWithText(`${ERROR_CODE.g002}, Code: g002`));
     return;
   }
 
@@ -33,12 +34,6 @@ async function loadGallery() {
       return item;
     }),
   );
-}
-
-function itemWithText(text) {
-  const item = document.createElement("li");
-  item.textContent = text;
-  return item;
 }
 
 loadGallery();

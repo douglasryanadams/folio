@@ -9,6 +9,7 @@ export default [
         document: "readonly",
         console: "readonly",
         fetch: "readonly",
+        DOMParser: "readonly",
         Bun: "readonly",
         URL: "readonly",
         Response: "readonly",
