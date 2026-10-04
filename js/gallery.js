@@ -23,17 +23,32 @@ async function loadGallery() {
     return;
   }
 
+  // Lists folders of images
+  const folders = [...new Set([...keys.map((key) => key.split("/")[0])])];
+
   gallery.replaceChildren(
-    ...keys.map((key) => {
-      const item = document.createElement("li");
-      const img = document.createElement("img");
-      img.src = `/media/${key}`;
-      img.alt = key;
-      img.loading = "lazy";
-      item.appendChild(img);
+    ...folders.map((folder) => {
+      const item = document.createElement("div");
+      const link = document.createElement("a");
+      link.href = `/${folder}.html`;
+      link.text = folder;
+      item.append(link);
       return item;
     }),
   );
 }
+
+//   gallery.replaceChildren(
+//     ...keys.map((key) => {
+//       const item = document.createElement("div");
+//       const img = document.createElement("img");
+//       img.src = `/media/${key}`;
+//       img.alt = key;
+//       img.loading = "lazy";
+//       item.appendChild(img);
+//       return item;
+//     }),
+//   );
+// }
 
 loadGallery();
