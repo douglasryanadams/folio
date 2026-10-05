@@ -12,12 +12,12 @@ dev:
 
 format:
 	docker compose -f docker-compose.build.yml run --build --rm lint-js bun run format:js
-	docker compose -f docker-compose.build.yml run --build --rm lint-css bun run format:css
+	docker compose -f docker-compose.build.yml run --rm lint-css bun run format:css
 
 lint: format
-	docker compose -f docker-compose.build.yml run --build --rm lint-js
-	docker compose -f docker-compose.build.yml run --build --rm lint-css
-	docker compose -f docker-compose.build.yml run --build --rm lint-html
+	docker compose -f docker-compose.build.yml run --rm lint-js
+	docker compose -f docker-compose.build.yml run --rm lint-css
+	docker compose -f docker-compose.build.yml run --rm lint-html
 
 test:
 	docker compose -f docker-compose.build.yml run --build --rm test
