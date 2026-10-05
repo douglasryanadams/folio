@@ -1,3 +1,18 @@
+@font-face {
+  font-family: Coustard;
+  src: url('../static/Coustard-Regular.ttf')
+}
+
+@font-face {
+  font-family: "Noto Serif";
+  src: url('../static/NotoSerif-Regular.ttf')
+}
+
+@font-face {
+  font-family: Slabo;
+  src: url('../static/Slabo27px-Regular.ttf');
+}
+
 :root {
   --color-bg: #09090d;
   --color-bg-deep: #0a0520;
@@ -7,8 +22,8 @@
   --color-cyan: #1df2dd;
   --color-text: #ede9f7;
   --color-text-muted: #9a93b3;
-  --font-body: "Noto Sans JP", sans-serif;
-  --font-heading: "Rubik", sans-serif;
+  --font-body: "Noto Serif", serif;
+  --font-heading: "Coustard", serif;
 }
 
 *,
