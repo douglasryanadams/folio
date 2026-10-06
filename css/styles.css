@@ -100,6 +100,19 @@ img {
   max-width: 100%;
 }
 
+.links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links a {
+  object-fit: scale-down;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));

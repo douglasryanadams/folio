@@ -7,8 +7,8 @@ stop:
 	docker compose down --volumes
 
 dev:
-	docker compose up -d --build s3 s3-init
-	bun run dev
+	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+	@echo "Dev server (no caching, source mounted): http://localhost:8080"
 
 format:
 	docker compose -f docker-compose.build.yml run --build --rm lint-js bun run format:js

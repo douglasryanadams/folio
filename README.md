@@ -35,7 +35,7 @@ Unfortunately, the reality for nearly anyone hosting a website in 2026 (and like
 ```sh
 make start   # start the dev environment (webserver + S3-compatible store)
 make stop    # stop it
-make dev     # start the S3 store + Bun hot-reload dev server
+make dev     # same stack as start, but nginx caching is off (just refresh to see edits)
 make format  # auto-fix JS/CSS style issues
 make lint    # format, then run all linters (JS, CSS, HTML) in Docker
 make test    # run the test suite with Bun, in Docker
@@ -85,27 +85,15 @@ are supported: `media-local/photos/2024/a.jpg` is served at
 of the object key, and SeaweedFS maps it to directories). Re-run `docker compose up s3-init` after adding more
 files to pick them up without restarting the whole stack.
 
-## Hot-reload development
+## Development mode
 
-For fast UI iteration, `dev-server.js` uses Bun's built-in dev server to
-serve `index.html` with hot reload: CSS and JS changes apply instantly in
-the browser, no manual refresh needed. It also proxies `/media/*` to the
-local S3 store, same as nginx does in `docker-compose.yml`, so images work
-too.
+`make dev` runs the same nginx + S3 stack as `make start`, layered with
+`docker-compose.dev.yml`. The source tree is bind-mounted into nginx and
+`nginx/dev.conf` disables caching, so editing HTML/CSS/JS and refreshing
+the browser always shows the latest files. Directory `index.html` routing
+and `/media/*` proxying behave exactly as in production.
 
-Requires Bun installed locally (this is the one workflow that isn't fully
-dockerized, since hot reload needs to watch the filesystem directly).
-
-```sh
-make dev
-# or: docker compose up -d s3 s3-init && bun run dev
-```
-
-- Site with hot reload: http://localhost:3000
-
-This is separate from `make start`, which runs the full nginx + S3 stack
-mirroring production and is better for testing the production-like setup
-rather than for active UI editing.
+- Site: http://localhost:8080
 
 ## Linting and tests
 

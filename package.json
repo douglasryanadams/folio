@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun dev-server.js",
     "format:js": "prettier --write \"**/*.js\" && eslint . --fix",
     "format:css": "stylelint \"**/*.css\" --fix",
     "format": "bun run format:js && bun run format:css",
