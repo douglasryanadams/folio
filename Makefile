@@ -10,6 +10,10 @@ dev:
 	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 	@echo "Dev server (no caching, source mounted): http://localhost:8080"
 
+logs:
+	docker compose -f docker-compose.yml logs -f
+
+
 format:
 	docker compose -f docker-compose.build.yml run --build --rm lint-js bun run format:js
 	docker compose -f docker-compose.build.yml run --rm lint-css bun run format:css
