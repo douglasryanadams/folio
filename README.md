@@ -33,9 +33,10 @@ Unfortunately, the reality for nearly anyone hosting a website in 2026 (and like
 ## Common commands
 
 ```sh
-make start   # start the dev environment (webserver + S3-compatible store)
+make start   # build, then run the production-like stack (nginx serving _site/)
 make stop    # stop it
-make dev     # same stack as start, but nginx caching is off (just refresh to see edits)
+make build   # build src/ into _site/ with Eleventy
+make dev     # Eleventy dev server with live reload at http://localhost:8080
 make format  # auto-fix JS/CSS style issues
 make lint    # format, then run all linters (JS, CSS, HTML) in Docker
 make test    # run the test suite with Bun, in Docker
@@ -44,56 +45,30 @@ make check   # lint + test
 
 ## Getting started
 
-Open `index.html` directly in a browser to view the current page skeleton, or
-run the dev environment (see below) to view it served over HTTP with image
-proxying to the local S3-compatible store.
+Pages and shared partials live in `src/` and are built into `_site/` by
+[Eleventy](https://www.11ty.dev/) (`make build`). `src/_includes/base.html` is
+the page layout; `src/_includes/partials/` holds the head, header, nav and
+footer. Each page is plain HTML with a small front matter block (`layout`,
+`title`). Output filenames match the source filenames (`src/about.html` becomes
+`/about.html`).
 
-## Development environment
+### Adding images
 
-`docker-compose.yml` runs a local stack mirroring how the site will be served
-in production (static assets + images via S3 behind CloudFront):
-
-- **webserver** — Nginx, serves the static site and reverse-proxies
-  `/media/*` to the S3-compatible store, so the site references the same
-  `/media/...` paths in dev and production.
-- **s3** — [SeaweedFS](https://github.com/seaweedfs/seaweedfs) running as an
-  all-in-one server with its S3 API gateway enabled, standing in for S3 in
-  dev. No auth is configured, so it accepts requests anonymously (fine for
-  local dev; production uses real S3 + CloudFront, see `PLAN.md`).
-- **s3-init** — a one-shot container that creates the `folio` bucket,
-  uploads the sample image, and uploads everything in `media-local/` (see
-  below), via plain S3 REST calls, then exits.
-
-```sh
-docker compose up
-```
-
-- Site: http://localhost:8080
-- Sample image via the proxy: http://localhost:8080/media/sample.svg
-- SeaweedFS S3 API directly (for debugging): http://localhost:8333
-
-Stop the stack with `docker compose down` (add `-v` to also clear the stored
-objects).
-
-### Adding real images without committing them
-
-Drop image files into `media-local/` (gitignored, created on first use).
-Every file in it gets uploaded to the S3 store on `docker compose up`, and
-becomes reachable at `/media/<path>`, same as `seed/sample.svg`. Subfolders
-are supported: `media-local/photos/2024/a.jpg` is served at
-`/media/photos/2024/a.jpg` (S3 has no real folders; the subpath is just part
-of the object key, and SeaweedFS maps it to directories). Re-run `docker compose up s3-init` after adding more
-files to pick them up without restarting the whole stack.
+Drop image files into `media-local/` (gitignored). Eleventy copies the folder
+into `_site/media/`, so `media-local/photography/golden_hour/1415.jpg` is
+served at `/media/photography/golden_hour/1415.jpg`, in dev and in the built
+site alike.
 
 ## Development mode
 
-`make dev` runs the same nginx + S3 stack as `make start`, layered with
-`docker-compose.dev.yml`. The source tree is bind-mounted into nginx and
-`nginx/dev.conf` disables caching, so editing HTML/CSS/JS and refreshing
-the browser always shows the latest files. Directory `index.html` routing
-and `/media/*` proxying behave exactly as in production.
+`make dev` runs the Eleventy dev server in a container with the project
+mounted, so edits to `src/`, `css/`, `static/` or `media-local/` rebuild the
+site and the browser reloads itself. Press Ctrl-C to stop.
 
 - Site: http://localhost:8080
+
+`make start` is the production-like check: it builds `_site/` and serves it
+with nginx.
 
 ## Linting and tests
 

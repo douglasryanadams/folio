@@ -1,4 +1,5 @@
 export default [
+  { ignores: ["_site/"] },
   {
     files: ["**/*.js"],
     languageOptions: {

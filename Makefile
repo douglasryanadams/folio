@@ -1,14 +1,17 @@
-.PHONY: start stop dev format lint test check
+.PHONY: build dev start stop logs format lint test check
 
-start:
+build:
+	docker compose -f docker-compose.build.yml run --build --rm build
+
+dev:
+	@echo "Eleventy dev server (live reload, Ctrl-C to stop): http://localhost:8080"
+	docker compose -f docker-compose.build.yml run --build --rm --service-ports dev
+
+start: build
 	docker compose up -d --build
 
 stop:
 	docker compose down --volumes
-
-dev:
-	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
-	@echo "Dev server (no caching, source mounted): http://localhost:8080"
 
 logs:
 	docker compose -f docker-compose.yml logs -f

@@ -1,4 +1,26 @@
 services:
+  # One-shot site build: src/ -> _site/ (served by nginx in `make start`).
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run build
+
+  # Eleventy dev server: rebuilds and live-reloads on every change to the mounted source.
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run dev
+
   lint-js:
     build:
       context: .
@@ -33,4 +55,4 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: bun test
+    command: bun run test

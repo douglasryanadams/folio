@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% if title %}{{ title }} | {% endif %}Douglas Adams</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/" id="home-link">Douglas Adams</a></h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/illustration.html"{% if page.url == "/illustration.html" %} aria-current="page"{% endif %}>Illustration</a></li>
+        <li><a href="/photography.html"{% if page.url == "/photography.html" or page.url.startsWith("/photography/") %} aria-current="page"{% endif %}>Photography</a></li>
+        <li><a href="/about.html"{% if page.url == "/about.html" %} aria-current="page"{% endif %}>About</a></li>
+      </ul>
+    </nav>
+    <main>
+      {{ content | safe }}
+    </main>
+    <footer>
+      <p>&copy; 2026 Douglas Adams</p>
+    </footer>
+  </body>
+</html>
