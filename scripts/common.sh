@@ -11,7 +11,8 @@ fi
 # shellcheck source=/dev/null
 source scripts/config.sh
 
-export AWS_PROFILE AWS_REGION AWS_PAGER=""
+# Uses the default AWS profile; set AWS_PROFILE in your environment to override.
+export AWS_REGION AWS_PAGER=""
 
 if ! command -v aws >/dev/null; then
   echo "AWS CLI not found. Install AWS CLI v2." >&2
@@ -19,7 +20,7 @@ if ! command -v aws >/dev/null; then
 fi
 
 if ! aws sts get-caller-identity >/dev/null 2>&1; then
-  echo "AWS session for profile '$AWS_PROFILE' is missing or expired." >&2
-  echo "Run: aws sso login --profile $AWS_PROFILE" >&2
+  echo "AWS session for profile '${AWS_PROFILE:-default}' is missing or expired." >&2
+  echo "Run: aws login${AWS_PROFILE:+ --profile $AWS_PROFILE}" >&2
   exit 1
 fi
