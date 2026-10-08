@@ -54,21 +54,31 @@ footer. Each page is plain HTML with a small front matter block (`layout`,
 
 ### Adding images
 
-Drop image files into `media-local/` (gitignored). Eleventy copies the folder
-into `_site/media/`, so `media-local/photography/golden_hour/1415.jpg` is
+Drop image files into `media/` (gitignored). Eleventy copies the folder
+into `_site/media/`, so `media/photography/golden_hour/1415.jpg` is
 served at `/media/photography/golden_hour/1415.jpg`, in dev and in the built
 site alike.
 
 ## Development mode
 
 `make dev` runs the Eleventy dev server in a container with the project
-mounted, so edits to `src/`, `css/`, `static/` or `media-local/` rebuild the
+mounted, so edits to `src/`, `css/`, `static/` or `media/` rebuild the
 site and the browser reloads itself. Press Ctrl-C to stop.
 
 - Site: http://localhost:8080
 
 `make start` is the production-like check: it builds `_site/` and serves it
 with nginx.
+
+## Deploying (S3 + CloudFront)
+
+One-time AWS setup is in [docs/aws-setup.md](docs/aws-setup.md). After that:
+
+```sh
+make deploy-dry-run   # build, then show what would be uploaded
+make deploy           # build, sync to S3, invalidate CloudFront
+make pull-media       # download media/ from S3 (never deletes local files)
+```
 
 ## Linting and tests
 

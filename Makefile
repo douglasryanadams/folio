@@ -1,4 +1,4 @@
-.PHONY: build dev start stop logs format lint test check
+.PHONY: build dev start stop logs format lint test check deploy deploy-dry-run pull-media
 
 build:
 	docker compose -f docker-compose.build.yml run --build --rm build
@@ -30,3 +30,12 @@ test:
 	docker compose -f docker-compose.build.yml run --build --rm test
 
 check: lint test
+
+deploy:
+	scripts/deploy.sh
+
+deploy-dry-run:
+	scripts/deploy.sh --dry-run
+
+pull-media:
+	scripts/pull-media.sh

@@ -1,0 +1,6 @@
+# Copy to scripts/config.sh (gitignored) and fill in. See docs/aws-setup.md.
+AWS_PROFILE="folio"
+AWS_REGION="us-east-1"
+BUCKET="your-folio-bucket-name"
+DISTRIBUTION_ID="E1234567890ABC"
+SITE_URL="https://example.com"

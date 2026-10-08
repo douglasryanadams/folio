@@ -5,3 +5,5 @@ _site/
 /media/
 /media-local/
 .idea/
+
+scripts/config.sh
