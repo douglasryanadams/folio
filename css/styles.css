@@ -39,6 +39,7 @@
   --color-text: var(--grey-five);
   --color-text-muted: var(--grey-three);
   --color-text-link: var(--grey-five);
+  --color-img-border: #fff;
   --font-body: "Noto Serif", serif;
   --font-heading: "Coustard", serif;
 }
@@ -68,6 +69,10 @@ h3 {
 a {
   color: var(--color-text-link);
   text-decoration: none;
+}
+
+a:hover {
+  color: var(--grey-three);
 }
 
 header {
@@ -112,6 +117,10 @@ img {
   object-fit: scale-down;
 }
 
+.links img {
+  border: 10px solid var(--color-img-border);
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
@@ -123,9 +132,24 @@ img {
 
 .gallery img {
   object-fit: scale-down;
-  border: 14px solid #fff;
+  border: 14px solid var(--color-img-border);
 }
 
-#home-link {
+.hide-link a:link{
   color: var(--color-text);
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  column-gap: 10px;
+}
+
+.index-img {
+  border: 10px solid var(--color-img-border);
+}
+
+.figcaption {
+  text-align: center;
 }
