@@ -138,17 +138,18 @@ img {
 }
 
 .index-left {
-  grid-column: 1 / 12;
+  grid-column: 1 / 13;
   grid-row: 1;
 }
 
 .index-right {
-  grid-column: 1 / 12;
+  grid-column: 1 / 13;
   grid-row: 2;
 }
 
 .index-figure {
   color: #fff;
+  position: relative;
 }
 
 @media screen and (width >= 505px) {
@@ -178,12 +179,6 @@ img {
 .figcaption {
   text-align: center;
 }
-
-.index-figure {
-  position: relative;
-}
-
-
 
 .index-figcaption {
   position: absolute;
