@@ -8,7 +8,10 @@
   </head>
   <body>
     <header>
-      <h1><a href="/" class="hide-link">Douglas Adams</a></h1>
+      <h1 class="headline">
+        <a href="/" class="hide-link">Douglas Adams</a>
+        {% if title %} | {{ title }}{% endif %}
+      </h1>
     </header>
     <main>
       {{ content | safe }}
