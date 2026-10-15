@@ -48,6 +48,25 @@ services:
       - /app/node_modules
     command: bun run lint:html
 
+  lint-links:
+    build:
+      context: .
+      dockerfile: Dockerfile.lint
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run lint:links
+
+  # Own image: pa11y-ci needs headless Chromium (see Dockerfile.a11y).
+  lint-a11y:
+    build:
+      context: .
+      dockerfile: Dockerfile.a11y
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: bun run lint:a11y
+
   test:
     build:
       context: .

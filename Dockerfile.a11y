@@ -1,0 +1,16 @@
+# Separate from Dockerfile.lint: pa11y-ci needs a real Chromium, which is large.
+FROM oven/bun:1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends chromium fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PUPPETEER_SKIP_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+
+WORKDIR /app
+
+COPY package.json ./
+RUN bun install
+
+COPY . .

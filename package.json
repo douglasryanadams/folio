@@ -13,13 +13,17 @@
     "lint:css": "stylelint \"**/*.css\"",
     "lint:html": "eleventy && htmlhint \"_site/**/*.html\"",
     "test": "eleventy && bun test",
-    "lint": "bun run lint:js && bun run lint:css && bun run lint:html"
+    "lint": "bun run lint:js && bun run lint:css && bun run lint:html",
+    "lint:a11y": "eleventy && pa11y-ci --config .pa11yci.json \"_site/**/*.html\"",
+    "lint:links": "eleventy && linkinator _site --recurse --skip \"^https?://douglasryanadams\\\\.com\""
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "@happy-dom/global-registrator": "^20.14.5",
     "eslint": "^9.0.0",
     "htmlhint": "^1.1.4",
+    "linkinator": "^8.1.0",
+    "pa11y-ci": "^5.0.0",
     "prettier": "^3.9.9",
     "stylelint": "^16.0.0",
     "stylelint-config-standard": "^36.0.0"

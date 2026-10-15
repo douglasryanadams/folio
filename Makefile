@@ -1,4 +1,4 @@
-.PHONY: build dev start stop logs format lint test check deploy deploy-dry-run pull-media
+.PHONY: build dev start stop logs format lint a11y test check deploy deploy-dry-run pull-media
 
 build:
 	docker compose -f docker-compose.build.yml run --build --rm build
@@ -25,11 +25,15 @@ lint: format
 	docker compose -f docker-compose.build.yml run --rm lint-js
 	docker compose -f docker-compose.build.yml run --rm lint-css
 	docker compose -f docker-compose.build.yml run --rm lint-html
+	docker compose -f docker-compose.build.yml run --rm lint-links
+
+a11y:
+	docker compose -f docker-compose.build.yml run --build --rm lint-a11y
 
 test:
 	docker compose -f docker-compose.build.yml run --build --rm test
 
-check: lint test
+check: lint a11y test
 
 deploy:
 	scripts/deploy.sh

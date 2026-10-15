@@ -3,13 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% if title %}{{ title }} | {% endif %}Douglas Adams</title>
+    {%- set pageTitle = (title + " | " if title else "") + "douglas adams" %}
+    {%- set pageDescription = description or "Douglas Ryan Adams personal website for his visual art." %}
+    <meta name="description" content="{{ pageDescription }}" />
+    <title>{{ pageTitle }}</title>
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="douglas ryan adams" />
+    <meta property="og:title" content="{{ pageTitle }}" />
+    <meta property="og:description" content="{{ pageDescription }}" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    {%- if image %}
+    <meta property="og:image" content="{{ site.url }}{{ image }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {%- else %}
+    <meta name="twitter:card" content="summary" />
+    {%- endif %}
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <header>
       <h1 class="headline">
-        <a href="/" class="hide-link">Douglas Adams</a>
+        <a href="/" class="hide-link">douglas adams</a>
+        {% if category %} | <a href="/{{ category }}.html">{{ category }}</a>{% endif %}
         {% if title %} | {{ title }}{% endif %}
       </h1>
     </header>
@@ -17,7 +33,8 @@
       {{ content | safe }}
     </main>
     <footer>
-      <p>&copy; 2026 <a href="/" class="hide-link">Douglas Adams</a> | <a href="/about.html">About</a></p>
+      <p>&copy; 2026 <a href="/" class="hide-link">douglas adams</a> | <a href="/about.html">about</a> | <a href="mailto:doug@douglasryanadams.com">e-mail</a></p>
     </footer>
+  {% if script %}<script src="{{script}}"></script>{% endif %}
   </body>
 </html>
