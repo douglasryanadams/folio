@@ -3,5 +3,5 @@ import { readFileSync } from "node:fs";
 
 test("built photography.html exists and has the expected title", () => {
   const html = readFileSync("_site/photography.html", "utf8");
-  expect(html).toContain("<title>photography | douglas adams</title>");
+  expect(html).toContain("<title>photography | douglas ryan adams</title>");
 });
