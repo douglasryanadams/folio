@@ -228,6 +228,7 @@ img {
 
 .gallery figure {
   margin-bottom: 80px;
+  box-shadow: 3px 4px 4px rgba(0 0 0 / 62%);
 }
 
 
@@ -243,6 +244,7 @@ img {
   .gallery figure {
     margin: 10px;
     object-fit: scale-down;
+    box-shadow: 0 0 0 rgba(0 0 0 / 0%);
   }
 
   .gallery figure:hover {
@@ -251,22 +253,24 @@ img {
 }
 
 .lightbox {
-  position: absolute;
-  top: 10%;
+  position: fixed;
+  top: 10dvh;
   left: 0;
   right: 0;
   margin-inline: auto;
   width: fit-content;
-  background-color: rgba(255 255 255 / 50%);
-  padding: 4%;
+  padding: 3%;
+  height: 86%;
 }
 
 .lightbox-img {
   object-fit: contain;
+  box-shadow: 7px 12px 6px rgba(0 0 0 / 62%);
+  height: 100%;
 }
 
 .lightbox-cover {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
