@@ -27,7 +27,6 @@
   --color-text-link: var(--grey-five);
   --font-body: "Noto Serif", serif;
   --font-heading: "Coustard", serif;
-
 }
 
 *,
@@ -303,4 +302,21 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* About Page */
+.about-frame {
+  margin: 40px;
+}
+
+@media screen and (width >= 505px) {
+  .about-frame {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 40px;
+  }
+
+  .about-text {
+    grid-column: 2 / 4;
+  }
 }
