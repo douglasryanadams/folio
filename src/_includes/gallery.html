@@ -1,0 +1,15 @@
+---
+layout: base.html
+script: /js/gallery.js
+---
+<div id="gallery" class="gallery">
+    {%- for item in galleryItems -%}
+    {%- if item.id %}
+    <figure>
+        <img id="{{item.id}}" class="gallery-img" alt="{{item.alt}}" src="{{item.src}}">
+    </figure>
+    {%- else -%}
+    <figure class="intentionally-blank"></figure>
+    {%- endif -%}
+    {%- endfor -%}
+</div>
