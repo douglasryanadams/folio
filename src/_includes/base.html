@@ -33,10 +33,16 @@
       {{ content | safe }}
     </main>
     <footer>
-      <p>&copy; 2026 <a href="/" class="hide-link">douglas adams</a> | <a href="/about.html">about</a> | <a href="mailto:doug@douglasryanadams.com">e-mail</a></p>
+      <p>
+        &copy; 2026 <a href="/" class="hide-link footer-link">douglas adams</a> |
+        <a href="/about.html" class="footer-link">about</a> |
+        <a href="mailto:doug@douglasryanadams.com" class="footer-link">e-mail</a> |
+        <a href="https://www.instagram.com/douglasryanadams" class="footer-link">
+          <img src="/static/Instagram_Glyph_Black.svg" alt="Instagram Logo" class="footer-img">
+        </a>
+      </p>
     </footer>
   {% if script %}<script src="{{script}}"></script>{% endif %}
-  <script data-goatcounter="https://douglasryanadams.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <script async data-goatcounter="https://douglasryanadams.goatcounter.com/count" src="/js/count.js"></script>
   </body>
 </html>

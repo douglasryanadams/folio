@@ -87,6 +87,22 @@ footer {
   font-size: 0.75rem;
 }
 
+.footer-img {
+  display: inline-block;
+  height: 1.2em;
+  width: auto;
+  vertical-align: middle;
+}
+
+.footer-link {
+  color: var(--color-text-muted);
+}
+
+.footer-link:hover {
+  color: var(--grey-five);
+  font-style: italic;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -108,10 +124,6 @@ img {
   footer {
     font-size: 1rem;
   }
-}
-
-.hide-link a:link{
-  color: var(--color-text);
 }
 
 .headline {

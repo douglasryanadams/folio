@@ -7,3 +7,6 @@ _site/
 .idea/
 
 scripts/config.sh
+
+# eleventy-fetch response cache
+.cache/
